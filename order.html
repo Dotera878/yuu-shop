@@ -227,128 +227,14 @@
 
     <div class="container">
 
-        <!-- --- 1. ビジュアルエリア (v0 Design: Responsive Hero) --- -->
-        <div class="hero-section" style="text-align:center; padding: 40px 20px 60px;">
-            <!-- Logo & Title -->
-            <div style="margin-bottom: 30px;">
-                <h1
-                    style="font-family: 'Shippori Mincho', serif; font-size: clamp(3rem, 10vw, 4.5rem); letter-spacing: 0.1em; color: #333; margin: 0 0 10px 0;">
-                    yuu
-                </h1>
-                <p
-                    style="font-family: 'Roboto', sans-serif; font-size: clamp(0.9rem, 2vw, 1.1rem); color: #888; letter-spacing: 0.2em; margin: 0;">
-                    〜フロランタンとカヌレの専門店〜
-                </p>
-            </div>
-
-            <!-- Hero Image (PC:21/9, Mobile:16/9 Aspect Ratio) -->
-            <div
-                style="position: relative; width: 100%; max-width: 960px; margin: 0 auto; overflow: hidden; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-                <!-- スマホ・PCで比率を変えるためのCSS仕込み -->
-                <style>
-                    .hero-img-container {
-                        position: relative;
-                        width: 100%;
-                        padding-top: 56.25%;
-                        /* Mobile: 16:9 */
-                    }
-
-                    @media (min-width: 768px) {
-                        .hero-img-container {
-                            padding-top: 42.85%;
-                            /* PC: 21:9 */
-                        }
-                    }
-
-                    .hero-img-content {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
-                </style>
-                <div class="hero-img-container">
-                    <!-- ★重要★ ここには「文字を消した写真だけ」の画像を top.png として入れてください -->
-                    <img src="images/top.png" alt="yuu - フロランタンとカヌレの専門店" class="hero-img-content"
-                        onerror="this.src='https://placehold.co/1200x500/e0d8cc/a68e74?text=Top+Image';">
-                </div>
-            </div>
-
-            <!-- Description -->
-            <p
-                style="margin-top: 30px; font-size: 0.95rem; color: #666; line-height: 2; font-family: 'Shippori Mincho', serif;">
-                伊豆の自然に囲まれた小さな専門店。<br>
-                丁寧に焼き上げる、カヌレとフロランタンをお楽しみください。
-            </p>
-        </div>
-
-        <!-- Instagram Link -->
-        <div style="text-align:center; padding: 0 0 40px;">
-            <a href="https://www.instagram.com/yuu_190.165/" target="_blank"
-                style="display:inline-flex; align-items:center; gap:10px; color:#E1306C; text-decoration:none; font-weight:bold; font-family:'Roboto', sans-serif;">
-                <span style="font-size:1.5rem;">📷</span> Instagram (@yuu_190.165)
+        <!-- Simple Header for Order Page -->
+        <div style="text-align:center; padding: 40px 20px 20px;">
+             <h1 style="font-family: 'Shippori Mincho', serif; font-size: 2rem; letter-spacing: 0.1em; color: #333; margin-bottom: 20px;">
+                ORDER SHEET
+            </h1>
+            <a href="index.html" style="display:inline-block; padding: 10px 20px; background-color: #8C7B6A; color: #fff; text-decoration: none; border-radius: 4px; font-family: 'Roboto', sans-serif; font-size: 0.9rem;">
+                &laquo; Top Pageに戻る
             </a>
-        </div>
-
-        <!-- お店情報 (Shop Info) - Code Implementation -->
-        <div class="shop-section">
-            <div class="section-title">店舗情報</div>
-
-            <!-- Shop Cards Grid -->
-            <div
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; text-align: left; max-width: 900px; margin: 0 auto;">
-
-                <!-- 1. 伊豆長岡本店 -->
-                <div
-                    style="background: rgba(255,255,255,0.8); padding: 30px; border-radius: 2px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                    <h3
-                        style="font-family: 'Shippori Mincho', serif; margin-top: 0; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
-                        伊豆長岡本店</h3>
-                    <p style="font-size: 0.95rem; line-height: 1.8;">
-                        <span style="font-size: 0.8rem; color: #888;">住所</span><br>
-                        静岡県伊豆の国市長岡1067-1<br><br>
-                        <span style="font-size: 0.8rem; color: #888;">営業時間</span><br>
-                        11:00〜17:00<br><br>
-                        <span style="font-size: 0.8rem; color: #888;">定休日</span><br>
-                        火曜日<br><br>
-                        <span style="font-size: 0.8rem; color: #888;">駐車場</span><br>
-                        有
-                    </p>
-                </div>
-
-                <!-- 2. 修善寺駅前店 -->
-                <div
-                    style="background: rgba(255,255,255,0.8); padding: 30px; border-radius: 2px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                    <h3
-                        style="font-family: 'Shippori Mincho', serif; margin-top: 0; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
-                        修善寺駅前店</h3>
-                    <p style="font-size: 0.95rem; line-height: 1.8;">
-                        <span style="font-size: 0.8rem; color: #888;">住所</span><br>
-                        静岡県伊豆市柏久保620-10<br><br>
-                        <span style="font-size: 0.8rem; color: #888;">営業時間</span><br>
-                        Instagram(修善寺駅前店)のカレンダー参照<br><br>
-                        <span style="font-size: 0.8rem; color: #888;">駐車場</span><br>
-                        有
-                    </p>
-                </div>
-
-                <!-- 3. 委託販売先 (Consignment) -->
-                <div
-                    style="background: rgba(240,235,230,0.8); padding: 30px; border-radius: 2px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                    <h3
-                        style="font-family: 'Shippori Mincho', serif; margin-top: 0; border-bottom: 1px solid #ddd; padding-bottom: 10px; color: #5a5a5a;">
-                        委託販売先</h3>
-                    <ul style="list-style: none; padding: 0; font-size: 0.95rem; line-height: 2;">
-                        <li>・JR浜松駅構内 3ヶ所</li>
-                        <li>・JR静岡駅構内 2ヶ所</li>
-                        <li>・遠鉄百貨店「全国銘菓」<br>　<span style="font-size: 0.85rem; color: #666;">(毎月第2or3金曜日納品)</span></li>
-                        <li>・弘法の湯長岡本店</li>
-                    </ul>
-                </div>
-
-            </div>
         </div>
         <!-- --------------------------------------- -->
 
