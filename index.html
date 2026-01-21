@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yuu | オーダーシート</title>
+    <!-- Google Fonts: 'Shippori Mincho' for Brand -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f4f1ea;
+            /* 和紙のようなベージュ */
+            --text-color: #4A4238;
+            /* 焦げ茶 */
+            --accent-color: #8C7B6A;
+            /* 薄茶 */
+            --card-bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Shippori Mincho', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            /* 和紙テクスチャ風 */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 0 80px 0;
+        }
+
+        /* Header */
+        .header {
+            padding: 40px 20px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(74, 66, 56, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            letter-spacing: 0.1em;
+            font-weight: 400;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        /* Product List */
+        #product-list {
+            padding: 10px;
+            min-height: 200px;
+        }
+
+        .loading-msg {
+            text-align: center;
+            padding: 40px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #eee;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 12px;
+            white-space: pre-wrap;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            font-family: 'Roboto', sans-serif;
+            margin-bottom: 16px;
+        }
+
+        /* Input Area */
+        .order-input-area {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            padding-top: 10px;
+            border-top: 1px dotted #ccc;
+        }
+
+        .qty-input {
+            width: 60px;
+            padding: 8px;
+            font-size: 1rem;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Customer Form */
+        .customer-form-section {
+            background: #fafafa;
+            margin: 20px;
+            padding: 24px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        /* Floating Submit Button */
+        .submit-btn-wrapper {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+
+        .submit-btn {
+            pointer-events: auto;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            display: block;
+            background-color: var(--text-color);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            font-family: 'Shippori Mincho', serif;
+            letter-spacing: 0.1em;
+        }
+
+        .submit-btn:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>yuu</h1>
+            <p>〜フロランタンとカヌレの専門店〜</p>
+        </div>
+
+        <!-- Product List -->
+        <div id="product-list">
+            <div class="loading-msg">読み込み中...</div>
+        </div>
+
+        <!-- Order Form -->
+        <form id="orderForm">
+            <div class="customer-form-section">
+                <h3 style="margin-top:0; border-bottom:1px solid #ccc; padding-bottom:8px;">お客様情報</h3>
+
+                <div class="form-group">
+                    <label>お名前 *</label>
+                    <input type="text" name="name" required placeholder="例: 山田 花子">
+                </div>
+                <div class="form-group">
+                    <label>お電話番号 *</label>
+                    <input type="tel" name="phone" required placeholder="例: 090-1234-5678">
+                </div>
+                <div class="form-group">
+                    <label>郵便番号</label>
+                    <input type="text" name="postal" placeholder="例: 123-4567">
+                </div>
+                <div class="form-group">
+                    <label>ご住所</label>
+                    <input type="text" name="address" placeholder="都道府県から番地まで">
+                </div>
+            </div>
+
+            <div class="submit-btn-wrapper">
+                <button type="submit" class="submit-btn">注文を確定する</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // ▼▼▼ ここにGASのウェブアプリURLを貼り付けてください ▼▼▼
+        const GAS_API_URL = "https://script.google.com/macros/s/AKfycbwJDKli23ayeLMOTac8TAu4X5IE0ZwEcr6oYEbEEaeZw9iEe3sy0pln3Qx0wRyYulnA_A/exec";
+        // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+        // 1. Fetch Products on Load
+        window.addEventListener('load', async () => {
+            if (GAS_API_URL.includes("XXXX")) {
+                document.getElementById('product-list').innerHTML = '<p style="text-align:center;color:red;">API URLが設定されていません。<br>ソースコードの GAS_API_URL を書き換えてください。</p>';
+                return;
+            }
+
+            try {
+                const response = await fetch(GAS_API_URL); // GET Request
+                const products = await response.json();
+                renderProducts(products);
+            } catch (err) {
+                console.error(err);
+                document.getElementById('product-list').innerHTML = '<p style="text-align:center;color:red;">データの読み込みに失敗しました。</p>';
+            }
+        });
+
+        function renderProducts(products) {
+            const list = document.getElementById('product-list');
+            if (products.length === 0) {
+                list.innerHTML = '<p style="text-align:center; padding:20px;">現在販売中の商品はありません。</p>';
+                return;
+            }
+            list.innerHTML = '';
+
+            products.forEach(p => {
+                const imgSrc = p.image ? p.image : 'https://placehold.co/400x300?text=No+Image';
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+          <img src="${imgSrc}" class="product-img" alt="${p.name}">
+          <div class="product-info">
+            <h3 class="product-name">${p.name}</h3>
+            <div class="product-price">¥${p.price.toLocaleString()}</div>
+            <div class="product-desc">${p.desc || ''}</div>
+            <div class="order-input-area">
+              <label>数量</label>
+              <!-- Data attributes to store price/name -->
+              <input type="number" class="qty-input" data-name="${p.name}" data-price="${p.price}" min="0" value="0">
+            </div>
+          </div>
+        `;
+                list.appendChild(card);
+            });
+        }
+
+        // 2. Submit Order
+        document.getElementById('orderForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const btn = document.querySelector('.submit-btn');
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = '送信中...';
+
+            // Gather Form Data
+            const formData = new FormData(this);
+            const customer = {
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                postal: formData.get('postal'),
+                address: formData.get('address')
+            };
+
+            // Gather Order Items
+            const items = [];
+            document.querySelectorAll('.qty-input').forEach(input => {
+                const qty = parseInt(input.value);
+                if (qty > 0) {
+                    items.push({
+                        name: input.dataset.name,
+                        price: parseInt(input.dataset.price),
+                        qty: qty
+                    });
+                }
+            });
+
+            if (items.length === 0) {
+                alert("商品が選択されていません");
+                btn.disabled = false;
+                btn.textContent = originalText;
+                return;
+            }
+
+            // Send to GAS
+            try {
+                // GAS Web App POST requires 'application/json' (handled by doPost(e) logic usually)
+                // or simple text payload. We used JSON.parse(e.postData.contents) in GAS.
+                const payload = { customer, items };
+
+                await fetch(GAS_API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+
+                // Note: fetch to GAS often returns 302 redirect for success.
+                // Or we might get opaque response with no-cors.
+                // Ideally we use redirect: 'follow' (default).
+
+                alert("注文を承りました！");
+                this.reset();
+                document.querySelectorAll('.qty-input').forEach(input => input.value = 0);
+
+                btn.textContent = '送信完了';
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.textContent = originalText;
+                }, 3000);
+
+            } catch (err) {
+                console.error(err);
+                // Even if GAS returns success, sometimes fetch fails on CORS/Redirect depending on settings.
+                // But with ContentService.createTextOutput + JSON + setMimeType, it should work fine.
+                alert("送信処理が完了しました（通信エラーが表示されましたが、注文は届いている可能性があります）");
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        });
+    </script>
+</body>
+
+</html>
