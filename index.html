@@ -254,12 +254,19 @@
             </div>
 
             <!-- ▼▼▼ ここが要望の「文章を追加したいエリア」です ▼▼▼ -->
-            <div class="order-message-area">
-                <p>ご注文ありがとうございます。</p>
-                <p>以下のフォームにお客様情報をご入力の上、</p>
-                <p>「Order Sheet」ボタンを押して注文を確定してください。</p>
-                <!-- 必要に応じて文章を書き換えてください -->
+            <!-- ▼▼▼ ここが要望の「文章を追加したいエリア」です ▼▼▼ -->
+            <div class="order-message-area"
+                style="background: rgba(255,255,255,0.7); padding: 25px; border-radius: 8px; margin-bottom: 30px; text-align: left; border: 1px solid #ddd;">
+                <h4 style="text-align:center; margin-top:0; color:#8C7B6A;">ご注文前にお読みください</h4>
+                <ul style="font-size: 0.95rem; line-height: 1.8; padding-left: 20px;">
+                    <li><strong>発送について：</strong> ご注文を受けてから焼き上げるため、発送まで3〜5日ほどお時間をいただきます。</li>
+                    <li><strong>賞味期限：</strong> フロランタンは製造から14日間、カヌレは冷凍で2週間（解凍後当日）です。</li>
+                    <li><strong>送料：</strong> 地域別送料がかかります（北海道・沖縄を除く一律〇〇円）。</li>
+                    <li><strong>ギフト対応：</strong> 備考欄にてお知らせいただければ、簡易ラッピングも可能です。</li>
+                </ul>
+                <p style="text-align:center; margin-bottom:0; font-weight:bold;">心を込めてお作りします。<br>ごゆっくりお選びください。</p>
             </div>
+            <!-- ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ -->
             <!-- ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ -->
 
             <form id="orderForm" class="customer-form">
@@ -276,15 +283,42 @@
                     <input type="text" name="postal" placeholder="例: 123-4567">
                 </div>
                 <div class="form-group">
+                    <label>お支払い方法 *</label>
+                    <select name="payment" required
+                        style="width:100%; padding:12px; font-size:1rem; border:1px solid #ccc; background:#fff;">
+                        <option value="銀行振込">銀行振込</option>
+                        <option value="現地払い">現地払い（来店時）</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label>ご住所</label>
                     <input type="text" name="address" placeholder="都道府県から番地まで">
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="submit-btn">Order Sheet</button>
+                <button type="button" class="submit-btn" onclick="showConfirm()">注文内容を確認する</button>
             </form>
         </div>
 
+    </div>
+
+    <!-- 確認画面モーダル (Confirmation Modal) -->
+    <div id="confirmModal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
+        <div
+            style="background:#fff; padding:30px; width:90%; max-width:500px; border-radius:8px; box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+            <h3 style="text-align:center; border-bottom:1px solid #ccc; padding-bottom:10px; margin-top:0;">ご注文内容の確認
+            </h3>
+            <div id="confirmContent" style="margin-bottom:20px; font-size:0.95rem; line-height:1.6;">
+                <!-- JSでここに内容を表示 -->
+            </div>
+            <div style="display:flex; gap:10px; justify-content:center;">
+                <button onclick="closeConfirm()"
+                    style="flex:1; padding:12px; background:#ccc; border:none; border-radius:4px; font-size:1rem; cursor:pointer;">修正する</button>
+                <button onclick="submitRealOrder()"
+                    style="flex:1; padding:12px; background:#A68E74; color:white; border:none; border-radius:4px; font-size:1rem; cursor:pointer;">注文を確定する</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -329,59 +363,105 @@
             });
         }
 
-        /* --- 注文送信 --- */
-        document.getElementById('orderForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const btn = document.querySelector('.submit-btn');
-            const originalText = btn.textContent;
-            btn.disabled = true;
-            btn.textContent = 'Sending...';
+        /* --- 確認画面の表示処理 --- */
+        let currentOrderData = null; // 送信データを一時保存
 
-            const formData = new FormData(this);
+        function showConfirm() {
+            const form = document.getElementById('orderForm');
+            if (!form.reportValidity()) return; // 必須項目のチェック
+
+            const formData = new FormData(form);
             const customer = {
                 name: formData.get('name'),
                 phone: formData.get('phone'),
                 postal: formData.get('postal'),
-                address: formData.get('address')
+                address: formData.get('address'),
+                payment: formData.get('payment')
             };
 
             const items = [];
+            let totalPrice = 0;
             document.querySelectorAll('.qty-input').forEach(input => {
                 const qty = parseInt(input.value);
                 if (qty > 0) {
+                    const price = parseInt(input.dataset.price);
                     items.push({
                         name: input.dataset.name,
-                        price: parseInt(input.dataset.price),
+                        price: price,
                         qty: qty
                     });
+                    totalPrice += price * qty;
                 }
             });
 
             if (items.length === 0) {
-                alert("商品が1つも選択されていません。\nProductリストから数量を入力してください。");
-                btn.disabled = false;
-                btn.textContent = originalText;
+                alert("商品が1つも選択されていません。");
                 return;
             }
+
+            // 保存
+            currentOrderData = {
+                customer,
+                items
+            };
+
+            // 確認画面のHTML生成
+            let itemsHtml = '<ul style="list-style:none; padding:0; margin:10px 0; border-top:1px dashed #ccc; border-bottom:1px dashed #ccc; padding:10px 0;">';
+            items.forEach(item => {
+                itemsHtml += `<li>${item.name} x ${item.qty} = ¥${(item.price * item.qty).toLocaleString()}</li>`;
+            });
+            itemsHtml += '</ul>';
+
+            const html = `
+                <div style="text-align:left;">
+                  <strong>【お客様情報】</strong><br>
+                  お名前：${customer.name} 様<br>
+                  支払い：${customer.payment}<br>
+                  住所：${customer.address}<br>
+                  <br>
+                  <strong>【ご注文商品】</strong>
+                  ${itemsHtml}
+                  <div style="text-align:right; font-size:1.1rem; font-weight:bold;">
+                    合計金額：¥${totalPrice.toLocaleString()}
+                  </div>
+                </div>
+              `;
+
+            document.getElementById('confirmContent').innerHTML = html;
+            document.getElementById('confirmModal').style.display = 'flex';
+        }
+
+        function closeConfirm() {
+            document.getElementById('confirmModal').style.display = 'none';
+        }
+
+        async function submitRealOrder() {
+            if (!currentOrderData) return;
+
+            const btn = document.querySelector('#confirmModal button[onclick="submitRealOrder()"]');
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = '送信中...';
 
             try {
                 await fetch(GAS_API_URL, {
                     method: 'POST',
-                    body: JSON.stringify({ customer, items })
+                    body: JSON.stringify(currentOrderData)
                 });
 
-                alert("Thank you!\nご注文を受け付けました。");
-                this.reset();
+                alert("Thank you!\nご注文が確定しました。");
+                closeConfirm();
+                document.getElementById('orderForm').reset();
                 document.querySelectorAll('.qty-input').forEach(input => input.value = 0);
-                btn.disabled = false;
-                btn.textContent = originalText;
 
             } catch (err) {
                 alert("送信完了（通信状況によりエラーが表示されましたが、注文は完了しています）");
+                closeConfirm();
+            } finally {
                 btn.disabled = false;
                 btn.textContent = originalText;
             }
-        });
+        }
     </script>
 </body>
 
