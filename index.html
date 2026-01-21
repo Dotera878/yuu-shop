@@ -227,47 +227,96 @@
 
     <div class="container">
 
-        <!-- 1. トップ画像 (Top Banner) -->
-        <div class="hero-section">
-            <!-- ユーザーはこれを "top.jpg" (or png) という名前にする -->
-            <img src="images/top.png" alt="yuu Top Banner" class="hero-img" onerror="this.style.display='none'">
+        <!-- --- 1. ビジュアルエリア (v0 Design: Responsive Hero) --- -->
+        <div class="hero-section" style="text-align:center; padding: 40px 20px 60px;">
+            <!-- Logo & Title -->
+            <div style="margin-bottom: 30px;">
+                <h1
+                    style="font-family: 'Shippori Mincho', serif; font-size: clamp(3rem, 10vw, 4.5rem); letter-spacing: 0.1em; color: #333; margin: 0 0 10px 0;">
+                    yuu
+                </h1>
+                <p
+                    style="font-family: 'Roboto', sans-serif; font-size: clamp(0.9rem, 2vw, 1.1rem); color: #888; letter-spacing: 0.2em; margin: 0;">
+                    〜フロランタンとカヌレの専門店〜
+                </p>
+            </div>
+
+            <!-- Hero Image (PC:21/9, Mobile:16/9 Aspect Ratio) -->
+            <div
+                style="position: relative; width: 100%; max-width: 960px; margin: 0 auto; overflow: hidden; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                <!-- スマホ・PCで比率を変えるためのCSS仕込み -->
+                <style>
+                    .hero-img-container {
+                        position: relative;
+                        width: 100%;
+                        padding-top: 56.25%;
+                        /* Mobile: 16:9 */
+                    }
+
+                    @media (min-width: 768px) {
+                        .hero-img-container {
+                            padding-top: 42.85%;
+                            /* PC: 21:9 */
+                        }
+                    }
+
+                    .hero-img-content {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                </style>
+                <div class="hero-img-container">
+                    <!-- Canvaで作った「文字なしの写真だけ」の画像を top.png にしてください -->
+                    <img src="images/top.png" alt="yuu - フロランタンとカヌレの専門店" class="hero-img-content"
+                        onerror="this.src='https://placehold.co/1200x500/e0d8cc/a68e74?text=Top+Image';">
+                </div>
+            </div>
+
+            <!-- Description -->
+            <p
+                style="margin-top: 30px; font-size: 0.95rem; color: #666; line-height: 2; font-family: 'Shippori Mincho', serif;">
+                伊豆の自然に囲まれた小さな専門店。<br>
+                丁寧に焼き上げる、カヌレとフロランタンをお楽しみください。
+            </p>
         </div>
 
-        <!-- 2. SHOP情報 (Shop Info) -->
-        <div class="shop-section">
-            <!-- ユーザーはこれを "shop.png" という名前にする -->
-            <img src="images/shop.png" alt="Shop Info" class="shop-img" onerror="this.style.display='none'">
+        <!-- Instagram Link -->
+        <div style="text-align:center; padding: 0 0 40px;">
+            <a href="https://www.instagram.com/yuu_190.165/" target="_blank"
+                style="display:inline-flex; align-items:center; gap:10px; color:#E1306C; text-decoration:none; font-weight:bold; font-family:'Roboto', sans-serif;">
+                <span style="font-size:1.5rem;">📷</span> Instagram (@yuu_190.165)
+            </a>
         </div>
 
-        <!-- 3. 商品一覧 (Product List - Dynamic) -->
-        <div class="product-section">
+        <!-- お店情報 (Shop Info) -->
+        <div class="visual-section">
+            <img src="images/shop.png" alt="Shop Info" class="hero-img" onerror="this.style.display='none'">
+        </div>
+        <!-- --------------------------------------- -->
+
+
+        <!-- --- 2. 注文システム (Product + Form) --- -->
+        <div class="product-section" style="margin-top:40px;">
             <div class="section-title">Product</div>
             <div id="product-list" class="product-grid">
                 <div class="loading-msg">商品データを読み込んでいます...</div>
             </div>
         </div>
 
-        <!-- 4. オーダーフォームエリア -->
         <div class="order-section">
             <div style="text-align:center;">
                 <div class="section-title">Order Form</div>
             </div>
 
-            <!-- ▼▼▼ ここが要望の「文章を追加したいエリア」です ▼▼▼ -->
-            <!-- ▼▼▼ ここが要望の「文章を追加したいエリア」です ▼▼▼ -->
-            <div class="order-message-area"
-                style="background: rgba(255,255,255,0.7); padding: 25px; border-radius: 8px; margin-bottom: 30px; text-align: left; border: 1px solid #ddd;">
-                <h4 style="text-align:center; margin-top:0; color:#8C7B6A;">ご注文前にお読みください</h4>
-                <ul style="font-size: 0.95rem; line-height: 1.8; padding-left: 20px;">
-                    <li><strong>発送について：</strong> ご注文を受けてから焼き上げるため、発送まで3〜5日ほどお時間をいただきます。</li>
-                    <li><strong>賞味期限：</strong> フロランタンは製造から14日間、カヌレは冷凍で2週間（解凍後当日）です。</li>
-                    <li><strong>送料：</strong> 地域別送料がかかります（北海道・沖縄を除く一律〇〇円）。</li>
-                    <li><strong>ギフト対応：</strong> 備考欄にてお知らせいただければ、簡易ラッピングも可能です。</li>
-                </ul>
-                <p style="text-align:center; margin-bottom:0; font-weight:bold;">心を込めてお作りします。<br>ごゆっくりお選びください。</p>
+            <!-- ご案内画像 (Notice) -->
+            <div class="order-message-area" style="text-align: center; margin-bottom: 30px;">
+                <img src="images/notice.png" alt="ご案内" style="max-width: 100%; height: auto; border-radius: 4px;"
+                    onerror="this.style.display='none'">
             </div>
-            <!-- ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ -->
-            <!-- ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ -->
 
             <form id="orderForm" class="customer-form">
                 <div class="form-group">
@@ -283,21 +332,29 @@
                     <input type="text" name="postal" placeholder="例: 123-4567">
                 </div>
                 <div class="form-group">
+                    <label>ご住所</label>
+                    <input type="text" name="address" placeholder="都道府県から番地まで">
+                </div>
+                <div class="form-group">
                     <label>お支払い方法 *</label>
                     <select name="payment" required
                         style="width:100%; padding:12px; font-size:1rem; border:1px solid #ccc; background:#fff;">
                         <option value="銀行振込">銀行振込</option>
+                        <option value="クレジットカード">クレジットカード (Stripe)</option>
                         <option value="現地払い">現地払い（来店時）</option>
                     </select>
-                </div>
-                <div class="form-group">
-                    <label>ご住所</label>
-                    <input type="text" name="address" placeholder="都道府県から番地まで">
                 </div>
 
                 <!-- Submit Button -->
                 <button type="button" class="submit-btn" onclick="showConfirm()">注文内容を確認する</button>
             </form>
+        </div>
+
+        <!-- Footer / Legal Links -->
+        <div style="text-align:center; padding: 40px 0 20px; font-size:0.8rem; color:#888;">
+            <a href="#" onclick="alert('特定商取引法に基づく表記のページへ（準備中）'); return false;"
+                style="color:#888; text-decoration:underline;">特定商取引法に基づく表記</a>
+            <p style="margin-top:10px;">&copy; yuu</p>
         </div>
 
     </div>
@@ -306,7 +363,7 @@
     <div id="confirmModal"
         style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
         <div
-            style="background:#fff; padding:30px; width:90%; max-width:500px; border-radius:8px; box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+            style="background:#fff; padding:30px; width:90%; max-width:500px; border-radius:8px; box-shadow:0 4px 15px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto;">
             <h3 style="text-align:center; border-bottom:1px solid #ccc; padding-bottom:10px; margin-top:0;">ご注文内容の確認
             </h3>
             <div id="confirmContent" style="margin-bottom:20px; font-size:0.95rem; line-height:1.6;">
