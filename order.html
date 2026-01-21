@@ -24,9 +24,11 @@
             font-family: 'Shippori Mincho', serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: returning;
+            line-height: 1.6;
             /* 和紙テクスチャ */
+            background-color: var(--bg-color) !important;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            color-scheme: light;
         }
 
         img {
@@ -229,10 +231,12 @@
 
         <!-- Simple Header for Order Page -->
         <div style="text-align:center; padding: 40px 20px 20px;">
-             <h1 style="font-family: 'Shippori Mincho', serif; font-size: 2rem; letter-spacing: 0.1em; color: #333; margin-bottom: 20px;">
+            <h1
+                style="font-family: 'Shippori Mincho', serif; font-size: 2rem; letter-spacing: 0.1em; color: #333; margin-bottom: 20px;">
                 ORDER SHEET
             </h1>
-            <a href="index.html" style="display:inline-block; padding: 10px 20px; background-color: #8C7B6A; color: #fff; text-decoration: none; border-radius: 4px; font-family: 'Roboto', sans-serif; font-size: 0.9rem;">
+            <a href="index.html"
+                style="display:inline-block; padding: 10px 20px; background-color: #8C7B6A; color: #fff; text-decoration: none; border-radius: 4px; font-family: 'Roboto', sans-serif; font-size: 0.9rem;">
                 &laquo; Top Pageに戻る
             </a>
         </div>
