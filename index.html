@@ -25,9 +25,6 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            /* 和紙テクスチャ */
-            background-color: var(--bg-color) !important;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
             color-scheme: light;
         }
 
@@ -51,7 +48,6 @@
 
         .hero-img {
             width: 100%;
-            /* スマホで見やすいように調整 */
             min-height: 200px;
             object-fit: cover;
         }
@@ -71,7 +67,6 @@
             padding-bottom: 5px;
             letter-spacing: 0.1em;
             font-family: 'Roboto', serif;
-            /* 英語表記用 */
             font-style: italic;
         }
 
@@ -79,148 +74,6 @@
             width: 100%;
             border-radius: 4px;
             margin-bottom: 10px;
-        }
-
-        /* --- 3. PRODUCT SECTION --- */
-        .product-section {
-            padding: 0 20px;
-            margin-bottom: 60px;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 20px 15px;
-        }
-
-        /* Product Card Logic */
-        .product-card {
-            background: transparent;
-            text-align: center;
-        }
-
-        .product-img-wrapper {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            /* 正方形 */
-            overflow: hidden;
-            margin-bottom: 10px;
-            background: #eee;
-        }
-
-        .product-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover .product-img-wrapper img {
-            transform: scale(1.05);
-        }
-
-        .product-name {
-            font-size: 1rem;
-            margin: 5px 0;
-            font-weight: 500;
-        }
-
-        .product-price {
-            font-size: 0.9rem;
-            color: var(--accent-color);
-            font-family: 'Roboto', sans-serif;
-            margin-bottom: 8px;
-        }
-
-        .qty-control {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .qty-input {
-            width: 50px;
-            text-align: center;
-            padding: 5px;
-            border: 1px solid var(--accent-color);
-            background: rgba(255, 255, 255, 0.8);
-            font-family: 'Roboto', sans-serif;
-        }
-
-        /* --- 4. ORDER FORM SECTION --- */
-        .order-section {
-            padding: 20px;
-            margin-top: 40px;
-            background-color: rgba(255, 255, 255, 0.4);
-            /* 背景を少し明るく */
-        }
-
-        /* カスタムメッセージエリア（Order Formとボタンの間） */
-        .order-message-area {
-            padding: 30px 20px;
-            text-align: center;
-        }
-
-        .order-message-area p {
-            margin: 0 0 10px 0;
-            font-size: 1rem;
-        }
-
-        /* Order Info Form */
-        .customer-form {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: left;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-            letter-spacing: 0.05em;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            font-size: 1rem;
-            border: 1px solid #ccc;
-            background: #fff;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-
-        /* Submit Button */
-        .submit-btn {
-            display: block;
-            width: 280px;
-            margin: 30px auto;
-            background-color: #A68E74;
-            /* 茶色ボタン */
-            color: white;
-            font-family: 'Shippori Mincho', serif;
-            font-size: 1.5rem;
-            padding: 15px 0;
-            border: none;
-            border-radius: 40px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            transition: background 0.3s;
-        }
-
-        .submit-btn:hover {
-            background-color: #8c745a;
-        }
-
-        .loading-msg {
-            text-align: center;
-            padding: 50px;
-            color: #888;
         }
     </style>
 </head>
@@ -243,10 +96,9 @@
                 </p>
             </div>
 
-            <!-- Hero Image (PC:21/9, Mobile:16/9 Aspect Ratio) -->
+            <!-- Hero Image -->
             <div
                 style="position: relative; width: 100%; max-width: 960px; margin: 0 auto; overflow: hidden; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-                <!-- スマホ・PCで比率を変えるためのCSS仕込み -->
                 <style>
                     .hero-img-container {
                         position: relative;
@@ -272,7 +124,6 @@
                     }
                 </style>
                 <div class="hero-img-container">
-                    <!-- ★重要★ ここには「文字を消した写真だけ」の画像を top.png として入れてください -->
                     <img src="images/top.png" alt="yuu - フロランタンとカヌレの専門店" class="hero-img-content"
                         onerror="this.src='https://placehold.co/1200x500/e0d8cc/a68e74?text=Top+Image';">
                 </div>
@@ -286,22 +137,23 @@
             </p>
         </div>
 
-        <!-- Instagram Link -->
+        <!-- Instagram Link (SVG) -->
         <div style="text-align:center; padding: 0 0 40px;">
             <a href="https://www.instagram.com/yuu_190.165/" target="_blank"
-                style="display:inline-flex; align-items:center; gap:10px; color:#E1306C; text-decoration:none; font-weight:bold; font-family:'Roboto', sans-serif;">
-                <span style="font-size:1.5rem;">📷</span> Instagram (@yuu_190.165)
+                style="display:inline-flex; align-items:center; gap:8px; color:#E1306C; text-decoration:none; font-weight:bold; font-family:'Roboto', sans-serif;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+                Instagram (@yuu_190.165)
             </a>
         </div>
 
-        <!-- お店情報 (Shop Info) - Code Implementation -->
+        <!-- お店情報 (Shop Info) -->
         <div class="shop-section">
             <div class="section-title">店舗情報</div>
-
-            <!-- Shop Cards Grid -->
             <div
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; text-align: left; max-width: 900px; margin: 0 auto;">
-
                 <!-- 1. 伊豆長岡本店 -->
                 <div
                     style="background: rgba(255,255,255,0.8); padding: 30px; border-radius: 2px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
@@ -309,17 +161,12 @@
                         style="font-family: 'Shippori Mincho', serif; margin-top: 0; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
                         伊豆長岡本店</h3>
                     <p style="font-size: 0.95rem; line-height: 1.8;">
-                        <span style="font-size: 0.8rem; color: #888;">住所</span><br>
-                        静岡県伊豆の国市長岡1067-1<br><br>
-                        <span style="font-size: 0.8rem; color: #888;">営業時間</span><br>
-                        11:00〜17:00<br><br>
-                        <span style="font-size: 0.8rem; color: #888;">定休日</span><br>
-                        火曜日<br><br>
-                        <span style="font-size: 0.8rem; color: #888;">駐車場</span><br>
-                        有
+                        <span style="font-size: 0.8rem; color: #888;">住所</span><br>静岡県伊豆の国市長岡1067-1<br><br>
+                        <span style="font-size: 0.8rem; color: #888;">営業時間</span><br>11:00〜17:00<br><br>
+                        <span style="font-size: 0.8rem; color: #888;">定休日</span><br>火曜日<br><br>
+                        <span style="font-size: 0.8rem; color: #888;">駐車場</span><br>有
                     </p>
                 </div>
-
                 <!-- 2. 修善寺駅前店 -->
                 <div
                     style="background: rgba(255,255,255,0.8); padding: 30px; border-radius: 2px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
@@ -327,16 +174,12 @@
                         style="font-family: 'Shippori Mincho', serif; margin-top: 0; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
                         修善寺駅前店</h3>
                     <p style="font-size: 0.95rem; line-height: 1.8;">
-                        <span style="font-size: 0.8rem; color: #888;">住所</span><br>
-                        静岡県伊豆市柏久保620-10<br><br>
-                        <span style="font-size: 0.8rem; color: #888;">営業時間</span><br>
-                        Instagram(修善寺駅前店)のカレンダー参照<br><br>
-                        <span style="font-size: 0.8rem; color: #888;">駐車場</span><br>
-                        有
+                        <span style="font-size: 0.8rem; color: #888;">住所</span><br>静岡県伊豆市柏久保620-10<br><br>
+                        <span style="font-size: 0.8rem; color: #888;">営業時間</span><br>Instagram(修善寺駅前店)のカレンダー参照<br><br>
+                        <span style="font-size: 0.8rem; color: #888;">駐車場</span><br>有
                     </p>
                 </div>
-
-                <!-- 3. 委託販売先 (Consignment) -->
+                <!-- 3. 委託販売先 -->
                 <div
                     style="background: rgba(240,235,230,0.8); padding: 30px; border-radius: 2px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                     <h3
@@ -345,37 +188,26 @@
                     <ul style="list-style: none; padding: 0; font-size: 0.95rem; line-height: 2;">
                         <li>・JR浜松駅構内 3ヶ所</li>
                         <li>・JR静岡駅構内 2ヶ所</li>
-                        <li>・遠鉄百貨店「全国銘菓」<br>　<span style="font-size: 0.85rem; color: #666;">(毎月第2or3金曜日納品)</span></li>
+                        <li>・遠鉄百貨店「全国銘菓」<br><span style="font-size: 0.85rem; color: #666;">(毎月第2or3金曜日納品)</span></li>
                         <li>・弘法の湯長岡本店</li>
                     </ul>
                 </div>
-
             </div>
         </div>
-        <!-- --------------------------------------- -->
 
-
-        <!-- --- 2. Order Button Section (To be split) --- -->
+        <!-- Order Button -->
         <div style="text-align: center; margin: 60px 0 40px;">
             <p style="font-family: 'Shippori Mincho', serif; margin-bottom: 20px; font-size: 1.1rem; line-height: 2;">
                 季節の焼き菓子やカヌレは、<br>
                 オンラインオーダーにてご注文いただけます。
             </p>
-            <a href="order.html" style="
-                display: inline-block;
-                background-color: #A68E74;
-                color: white;
-                font-family: 'Shippori Mincho', serif;
-                font-size: 1.2rem;
-                padding: 15px 40px;
-                text-decoration: none;
-                border-radius: 4px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-                transition: background 0.3s;
-            ">オンライン予約・注文はこちら</a>
+            <a href="order.html"
+                style="display: inline-block; background-color: #A68E74; color: white; font-family: 'Shippori Mincho', serif; font-size: 1.2rem; padding: 15px 40px; text-decoration: none; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: background 0.3s;">
+                オンライン予約・注文はこちら
+            </a>
         </div>
 
-        <!-- Footer / Legal Links -->
+        <!-- Footer -->
         <div style="text-align:center; padding: 40px 0 20px; font-size:0.8rem; color:#888;">
             <a href="#" onclick="alert('特定商取引法に基づく表記のページへ（準備中）'); return false;"
                 style="color:#888; text-decoration:underline;">特定商取引法に基づく表記</a>
@@ -383,168 +215,6 @@
         </div>
 
     </div>
-
-    <!-- 確認画面モーダル (Confirmation Modal) -->
-    <div id="confirmModal"
-        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
-        <div
-            style="background:#fff; padding:30px; width:90%; max-width:500px; border-radius:8px; box-shadow:0 4px 15px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto;">
-            <h3 style="text-align:center; border-bottom:1px solid #ccc; padding-bottom:10px; margin-top:0;">ご注文内容の確認
-            </h3>
-            <div id="confirmContent" style="margin-bottom:20px; font-size:0.95rem; line-height:1.6;">
-                <!-- JSでここに内容を表示 -->
-            </div>
-            <div style="display:flex; gap:10px; justify-content:center;">
-                <button onclick="closeConfirm()"
-                    style="flex:1; padding:12px; background:#ccc; border:none; border-radius:4px; font-size:1rem; cursor:pointer;">修正する</button>
-                <button onclick="submitRealOrder()"
-                    style="flex:1; padding:12px; background:#A68E74; color:white; border:none; border-radius:4px; font-size:1rem; cursor:pointer;">注文を確定する</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // ▼ GAS API URL (ユーザー設定済み)
-        const GAS_API_URL = "https://script.google.com/macros/s/AKfycbwJDKli23ayeLMOTac8TAu4X5IE0ZwEcr6oYEbEEaeZw9iEe3sy0pln3Qx0wRyYulnA_A/exec";
-
-        /* --- データ取得と表示 --- */
-        window.addEventListener('load', async () => {
-            try {
-                const response = await fetch(GAS_API_URL);
-                const products = await response.json();
-                renderProducts(products);
-            } catch (err) {
-                document.getElementById('product-list').innerHTML = '<p style="text-align:center;">読み込みエラー: ' + err + '</p>';
-            }
-        });
-
-        function renderProducts(products) {
-            const list = document.getElementById('product-list');
-            if (products.length === 0) {
-                list.innerHTML = '<p>現在販売中の商品はありません。</p>';
-                return;
-            }
-            list.innerHTML = '';
-
-            products.forEach(p => {
-                const imgSrc = p.image ? p.image : 'https://placehold.co/300x300/eee/999?text=No+Image';
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-          <div class="product-img-wrapper">
-            <img src="${imgSrc}" alt="${p.name}">
-          </div>
-          <div class="product-name">${p.name}</div>
-          <div class="product-price">¥${p.price.toLocaleString()}</div>
-          <div class="qty-control">
-            <span>Qty</span>
-            <input type="number" class="qty-input" data-name="${p.name}" data-price="${p.price}" min="0" value="0">
-          </div>
-        `;
-                list.appendChild(card);
-            });
-        }
-
-        /* --- 確認画面の表示処理 --- */
-        let currentOrderData = null; // 送信データを一時保存
-
-        function showConfirm() {
-            const form = document.getElementById('orderForm');
-            if (!form.reportValidity()) return; // 必須項目のチェック
-
-            const formData = new FormData(form);
-            const customer = {
-                name: formData.get('name'),
-                phone: formData.get('phone'),
-                postal: formData.get('postal'),
-                address: formData.get('address'),
-                payment: formData.get('payment')
-            };
-
-            const items = [];
-            let totalPrice = 0;
-            document.querySelectorAll('.qty-input').forEach(input => {
-                const qty = parseInt(input.value);
-                if (qty > 0) {
-                    const price = parseInt(input.dataset.price);
-                    items.push({
-                        name: input.dataset.name,
-                        price: price,
-                        qty: qty
-                    });
-                    totalPrice += price * qty;
-                }
-            });
-
-            if (items.length === 0) {
-                alert("商品が1つも選択されていません。");
-                return;
-            }
-
-            // 保存
-            currentOrderData = {
-                customer,
-                items
-            };
-
-            // 確認画面のHTML生成
-            let itemsHtml = '<ul style="list-style:none; padding:0; margin:10px 0; border-top:1px dashed #ccc; border-bottom:1px dashed #ccc; padding:10px 0;">';
-            items.forEach(item => {
-                itemsHtml += `<li>${item.name} x ${item.qty} = ¥${(item.price * item.qty).toLocaleString()}</li>`;
-            });
-            itemsHtml += '</ul>';
-
-            const html = `
-                <div style="text-align:left;">
-                  <strong>【お客様情報】</strong><br>
-                  お名前：${customer.name} 様<br>
-                  支払い：${customer.payment}<br>
-                  住所：${customer.address}<br>
-                  <br>
-                  <strong>【ご注文商品】</strong>
-                  ${itemsHtml}
-                  <div style="text-align:right; font-size:1.1rem; font-weight:bold;">
-                    合計金額：¥${totalPrice.toLocaleString()}
-                  </div>
-                </div>
-              `;
-
-            document.getElementById('confirmContent').innerHTML = html;
-            document.getElementById('confirmModal').style.display = 'flex';
-        }
-
-        function closeConfirm() {
-            document.getElementById('confirmModal').style.display = 'none';
-        }
-
-        async function submitRealOrder() {
-            if (!currentOrderData) return;
-
-            const btn = document.querySelector('#confirmModal button[onclick="submitRealOrder()"]');
-            const originalText = btn.textContent;
-            btn.disabled = true;
-            btn.textContent = '送信中...';
-
-            try {
-                await fetch(GAS_API_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(currentOrderData)
-                });
-
-                alert("Thank you!\nご注文が確定しました。");
-                closeConfirm();
-                document.getElementById('orderForm').reset();
-                document.querySelectorAll('.qty-input').forEach(input => input.value = 0);
-
-            } catch (err) {
-                alert("送信完了（通信状況によりエラーが表示されましたが、注文は完了しています）");
-                closeConfirm();
-            } finally {
-                btn.disabled = false;
-                btn.textContent = originalText;
-            }
-        }
-    </script>
 </body>
 
 </html>
