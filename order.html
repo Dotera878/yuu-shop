@@ -353,24 +353,55 @@
         <!-- --------------------------------------- -->
 
 
-        <!-- --- 2. Order Button Section (To be split) --- -->
-        <div style="text-align: center; margin: 60px 0 40px;">
-            <p style="font-family: 'Shippori Mincho', serif; margin-bottom: 20px; font-size: 1.1rem; line-height: 2;">
-                季節の焼き菓子やカヌレは、<br>
-                オンラインオーダーにてご注文いただけます。
-            </p>
-            <a href="order.html" style="
-                display: inline-block;
-                background-color: #A68E74;
-                color: white;
-                font-family: 'Shippori Mincho', serif;
-                font-size: 1.2rem;
-                padding: 15px 40px;
-                text-decoration: none;
-                border-radius: 4px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-                transition: background 0.3s;
-            ">オンライン予約・注文はこちら</a>
+        <!-- --- 2. 注文システム (Product + Form) --- -->
+        <div class="product-section" style="margin-top:40px;">
+            <div class="section-title">Product</div>
+            <div id="product-list" class="product-grid">
+                <div class="loading-msg">商品データを読み込んでいます...</div>
+            </div>
+        </div>
+
+        <div class="order-section">
+            <div style="text-align:center;">
+                <div class="section-title">Order Form</div>
+            </div>
+
+            <!-- ご案内画像 (Notice) -->
+            <div class="order-message-area" style="text-align: center; margin-bottom: 30px;">
+                <img src="images/notice.png" alt="ご案内" style="max-width: 100%; height: auto; border-radius: 4px;"
+                    onerror="this.style.display='none'">
+            </div>
+
+            <form id="orderForm" class="customer-form">
+                <div class="form-group">
+                    <label>お名前 *</label>
+                    <input type="text" name="name" required placeholder="例: 山田 花子">
+                </div>
+                <div class="form-group">
+                    <label>お電話番号 *</label>
+                    <input type="tel" name="phone" required placeholder="例: 090-1234-5678">
+                </div>
+                <div class="form-group">
+                    <label>郵便番号</label>
+                    <input type="text" name="postal" placeholder="例: 123-4567">
+                </div>
+                <div class="form-group">
+                    <label>ご住所</label>
+                    <input type="text" name="address" placeholder="都道府県から番地まで">
+                </div>
+                <div class="form-group">
+                    <label>お支払い方法 *</label>
+                    <select name="payment" required
+                        style="width:100%; padding:12px; font-size:1rem; border:1px solid #ccc; background:#fff;">
+                        <option value="銀行振込">銀行振込</option>
+                        <option value="クレジットカード">クレジットカード (Stripe)</option>
+                        <option value="現地払い">現地払い（来店時）</option>
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="button" class="submit-btn" onclick="showConfirm()">注文内容を確認する</button>
+            </form>
         </div>
 
         <!-- Footer / Legal Links -->
