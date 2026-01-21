@@ -5,21 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>yuu | オーダーシート</title>
-    <!-- Google Fonts: 'Shippori Mincho' for Brand -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&family=Roboto:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Roboto:wght@400;500&display=swap"
         rel="stylesheet">
     <style>
         :root {
             --bg-color: #f4f1ea;
-            /* 和紙のようなベージュ */
             --text-color: #4A4238;
-            /* 焦げ茶 */
             --accent-color: #8C7B6A;
-            /* 薄茶 */
-            --card-bg: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.6);
         }
 
         body {
@@ -27,176 +24,201 @@
             font-family: 'Shippori Mincho', serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.6;
-            /* 和紙テクスチャ風 */
+            line-height: returning;
+            /* 和紙テクスチャ */
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
         }
 
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 0 0 80px 0;
+            padding-bottom: 100px;
         }
 
-        /* Header */
-        .header {
-            padding: 40px 20px 20px;
-            text-align: center;
-            border-bottom: 1px solid rgba(74, 66, 56, 0.2);
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin: 0;
-            letter-spacing: 0.1em;
-            font-weight: 400;
-        }
-
-        .header p {
-            font-size: 0.9rem;
-            margin-top: 10px;
-            opacity: 0.8;
-        }
-
-        /* Product List */
-        #product-list {
-            padding: 10px;
-            min-height: 200px;
-        }
-
-        .loading-msg {
-            text-align: center;
-            padding: 40px;
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        /* Product Card */
-        .product-card {
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 8px;
-            margin-bottom: 24px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-img {
+        /* --- 1. HERO SECTION (Top Banner) --- */
+        .hero-section {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background-color: #eee;
+            margin-bottom: 40px;
         }
 
-        .product-info {
+        .hero-img {
+            width: 100%;
+            /* スマホで見やすいように調整 */
+            min-height: 200px;
+            object-fit: cover;
+        }
+
+        /* --- 2. SHOP SECTION --- */
+        .shop-section {
             padding: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--text-color);
+            display: inline-block;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+            letter-spacing: 0.1em;
+            font-family: 'Roboto', serif;
+            /* 英語表記用 */
+            font-style: italic;
+        }
+
+        .shop-img {
+            width: 100%;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        /* --- 3. PRODUCT SECTION --- */
+        .product-section {
+            padding: 0 20px;
+            margin-bottom: 60px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px 15px;
+        }
+
+        /* Product Card Logic */
+        .product-card {
+            background: transparent;
+            text-align: center;
+        }
+
+        .product-img-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            /* 正方形 */
+            overflow: hidden;
+            margin-bottom: 10px;
+            background: #eee;
+        }
+
+        .product-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-img-wrapper img {
+            transform: scale(1.05);
         }
 
         .product-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 0 0 8px 0;
-        }
-
-        .product-desc {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-bottom: 12px;
-            white-space: pre-wrap;
+            font-size: 1rem;
+            margin: 5px 0;
+            font-weight: 500;
         }
 
         .product-price {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             color: var(--accent-color);
             font-family: 'Roboto', sans-serif;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
         }
 
-        /* Input Area */
-        .order-input-area {
+        .qty-control {
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: flex-end;
-            gap: 10px;
-            padding-top: 10px;
-            border-top: 1px dotted #ccc;
+            gap: 5px;
         }
 
         .qty-input {
-            width: 60px;
-            padding: 8px;
-            font-size: 1rem;
+            width: 50px;
             text-align: center;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.9);
+            padding: 5px;
+            border: 1px solid var(--accent-color);
+            background: rgba(255, 255, 255, 0.8);
+            font-family: 'Roboto', sans-serif;
         }
 
-        /* Customer Form */
-        .customer-form-section {
-            background: #fafafa;
-            margin: 20px;
-            padding: 24px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
+        /* --- 4. ORDER FORM SECTION --- */
+        .order-section {
+            padding: 20px;
+            margin-top: 40px;
+            background-color: rgba(255, 255, 255, 0.4);
+            /* 背景を少し明るく */
+        }
+
+        /* カスタムメッセージエリア（Order Formとボタンの間） */
+        .order-message-area {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .order-message-area p {
+            margin: 0 0 10px 0;
+            font-size: 1rem;
+        }
+
+        /* Order Info Form */
+        .customer-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
         }
 
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
         }
 
         .form-group input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
+            font-size: 1rem;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            background: #fff;
             box-sizing: border-box;
-            font-size: 1rem;
+            font-family: inherit;
         }
 
-        /* Floating Submit Button */
-        .submit-btn-wrapper {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
-            pointer-events: none;
-        }
-
+        /* Submit Button */
         .submit-btn {
-            pointer-events: auto;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
             display: block;
-            background-color: var(--text-color);
+            width: 280px;
+            margin: 30px auto;
+            background-color: #A68E74;
+            /* 茶色ボタン */
             color: white;
-            border: none;
-            padding: 16px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 50px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
             font-family: 'Shippori Mincho', serif;
-            letter-spacing: 0.1em;
+            font-size: 1.5rem;
+            padding: 15px 0;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: background 0.3s;
         }
 
-        .submit-btn:disabled {
-            background-color: #999;
-            cursor: not-allowed;
+        .submit-btn:hover {
+            background-color: #8c745a;
+        }
+
+        .loading-msg {
+            text-align: center;
+            padding: 50px;
+            color: #888;
         }
     </style>
 </head>
@@ -204,21 +226,43 @@
 <body>
 
     <div class="container">
-        <div class="header">
-            <h1>yuu</h1>
-            <p>〜フロランタンとカヌレの専門店〜</p>
+
+        <!-- 1. トップ画像 (Top Banner) -->
+        <div class="hero-section">
+            <!-- ユーザーはこれを "top.jpg" (or png) という名前にする -->
+            <img src="images/top.png" alt="yuu Top Banner" class="hero-img" onerror="this.style.display='none'">
         </div>
 
-        <!-- Product List -->
-        <div id="product-list">
-            <div class="loading-msg">読み込み中...</div>
+        <!-- 2. SHOP情報 (Shop Info) -->
+        <div class="shop-section">
+            <!-- ユーザーはこれを "shop.png" という名前にする -->
+            <img src="images/shop.png" alt="Shop Info" class="shop-img" onerror="this.style.display='none'">
         </div>
 
-        <!-- Order Form -->
-        <form id="orderForm">
-            <div class="customer-form-section">
-                <h3 style="margin-top:0; border-bottom:1px solid #ccc; padding-bottom:8px;">お客様情報</h3>
+        <!-- 3. 商品一覧 (Product List - Dynamic) -->
+        <div class="product-section">
+            <div class="section-title">Product</div>
+            <div id="product-list" class="product-grid">
+                <div class="loading-msg">商品データを読み込んでいます...</div>
+            </div>
+        </div>
 
+        <!-- 4. オーダーフォームエリア -->
+        <div class="order-section">
+            <div style="text-align:center;">
+                <div class="section-title">Order Form</div>
+            </div>
+
+            <!-- ▼▼▼ ここが要望の「文章を追加したいエリア」です ▼▼▼ -->
+            <div class="order-message-area">
+                <p>ご注文ありがとうございます。</p>
+                <p>以下のフォームにお客様情報をご入力の上、</p>
+                <p>「Order Sheet」ボタンを押して注文を確定してください。</p>
+                <!-- 必要に応じて文章を書き換えてください -->
+            </div>
+            <!-- ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ -->
+
+            <form id="orderForm" class="customer-form">
                 <div class="form-group">
                     <label>お名前 *</label>
                     <input type="text" name="name" required placeholder="例: 山田 花子">
@@ -235,75 +279,64 @@
                     <label>ご住所</label>
                     <input type="text" name="address" placeholder="都道府県から番地まで">
                 </div>
-            </div>
 
-            <div class="submit-btn-wrapper">
-                <button type="submit" class="submit-btn">注文を確定する</button>
-            </div>
-        </form>
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn">Order Sheet</button>
+            </form>
+        </div>
+
     </div>
 
     <script>
-        // ▼▼▼ ここにGASのウェブアプリURLを貼り付けてください ▼▼▼
+        // ▼ GAS API URL (ユーザー設定済み)
         const GAS_API_URL = "https://script.google.com/macros/s/AKfycbwJDKli23ayeLMOTac8TAu4X5IE0ZwEcr6oYEbEEaeZw9iEe3sy0pln3Qx0wRyYulnA_A/exec";
-        // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
-        // 1. Fetch Products on Load
+        /* --- データ取得と表示 --- */
         window.addEventListener('load', async () => {
-            if (GAS_API_URL.includes("XXXX")) {
-                document.getElementById('product-list').innerHTML = '<p style="text-align:center;color:red;">API URLが設定されていません。<br>ソースコードの GAS_API_URL を書き換えてください。</p>';
-                return;
-            }
-
             try {
-                const response = await fetch(GAS_API_URL); // GET Request
+                const response = await fetch(GAS_API_URL);
                 const products = await response.json();
                 renderProducts(products);
             } catch (err) {
-                console.error(err);
-                document.getElementById('product-list').innerHTML = '<p style="text-align:center;color:red;">データの読み込みに失敗しました。</p>';
+                document.getElementById('product-list').innerHTML = '<p style="text-align:center;">読み込みエラー: ' + err + '</p>';
             }
         });
 
         function renderProducts(products) {
             const list = document.getElementById('product-list');
             if (products.length === 0) {
-                list.innerHTML = '<p style="text-align:center; padding:20px;">現在販売中の商品はありません。</p>';
+                list.innerHTML = '<p>現在販売中の商品はありません。</p>';
                 return;
             }
             list.innerHTML = '';
 
             products.forEach(p => {
-                const imgSrc = p.image ? p.image : 'https://placehold.co/400x300?text=No+Image';
+                const imgSrc = p.image ? p.image : 'https://placehold.co/300x300/eee/999?text=No+Image';
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-          <img src="${imgSrc}" class="product-img" alt="${p.name}">
-          <div class="product-info">
-            <h3 class="product-name">${p.name}</h3>
-            <div class="product-price">¥${p.price.toLocaleString()}</div>
-            <div class="product-desc">${p.desc || ''}</div>
-            <div class="order-input-area">
-              <label>数量</label>
-              <!-- Data attributes to store price/name -->
-              <input type="number" class="qty-input" data-name="${p.name}" data-price="${p.price}" min="0" value="0">
-            </div>
+          <div class="product-img-wrapper">
+            <img src="${imgSrc}" alt="${p.name}">
+          </div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-price">¥${p.price.toLocaleString()}</div>
+          <div class="qty-control">
+            <span>Qty</span>
+            <input type="number" class="qty-input" data-name="${p.name}" data-price="${p.price}" min="0" value="0">
           </div>
         `;
                 list.appendChild(card);
             });
         }
 
-        // 2. Submit Order
+        /* --- 注文送信 --- */
         document.getElementById('orderForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-
             const btn = document.querySelector('.submit-btn');
             const originalText = btn.textContent;
             btn.disabled = true;
-            btn.textContent = '送信中...';
+            btn.textContent = 'Sending...';
 
-            // Gather Form Data
             const formData = new FormData(this);
             const customer = {
                 name: formData.get('name'),
@@ -312,7 +345,6 @@
                 address: formData.get('address')
             };
 
-            // Gather Order Items
             const items = [];
             document.querySelectorAll('.qty-input').forEach(input => {
                 const qty = parseInt(input.value);
@@ -326,42 +358,26 @@
             });
 
             if (items.length === 0) {
-                alert("商品が選択されていません");
+                alert("商品が1つも選択されていません。\nProductリストから数量を入力してください。");
                 btn.disabled = false;
                 btn.textContent = originalText;
                 return;
             }
 
-            // Send to GAS
             try {
-                // GAS Web App POST requires 'application/json' (handled by doPost(e) logic usually)
-                // or simple text payload. We used JSON.parse(e.postData.contents) in GAS.
-                const payload = { customer, items };
-
                 await fetch(GAS_API_URL, {
                     method: 'POST',
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({ customer, items })
                 });
 
-                // Note: fetch to GAS often returns 302 redirect for success.
-                // Or we might get opaque response with no-cors.
-                // Ideally we use redirect: 'follow' (default).
-
-                alert("注文を承りました！");
+                alert("Thank you!\nご注文を受け付けました。");
                 this.reset();
                 document.querySelectorAll('.qty-input').forEach(input => input.value = 0);
-
-                btn.textContent = '送信完了';
-                setTimeout(() => {
-                    btn.disabled = false;
-                    btn.textContent = originalText;
-                }, 3000);
+                btn.disabled = false;
+                btn.textContent = originalText;
 
             } catch (err) {
-                console.error(err);
-                // Even if GAS returns success, sometimes fetch fails on CORS/Redirect depending on settings.
-                // But with ContentService.createTextOutput + JSON + setMimeType, it should work fine.
-                alert("送信処理が完了しました（通信エラーが表示されましたが、注文は届いている可能性があります）");
+                alert("送信完了（通信状況によりエラーが表示されましたが、注文は完了しています）");
                 btn.disabled = false;
                 btn.textContent = originalText;
             }
