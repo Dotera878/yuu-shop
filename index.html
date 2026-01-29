@@ -193,16 +193,16 @@
             </div>
         </div>
 
-        <!-- Order Button -->
-        <div style="text-align: center; margin: 60px 0 40px;">
-            <p style="font-family: 'Shippori Mincho', serif; margin-bottom: 20px; font-size: 1.1rem; line-height: 2;">
+
+
+
+        <!-- Online Order CTA Section -->
+        <div class="order-cta-section" style="text-align: center; padding: 60px 20px 80px;">
+            <p
+                style="font-family: 'Shippori Mincho', serif; font-weight: 500; font-size: 1rem; margin-bottom: 30px; line-height: 2; color: #4A4238;">
                 季節の焼き菓子やカヌレは、<br>
                 オンラインオーダーにてご注文いただけます。
             </p>
-            <a href="order.html"
-                style="display: inline-block; background-color: #A68E74; color: white; font-family: 'Shippori Mincho', serif; font-size: 1.2rem; padding: 15px 40px; text-decoration: none; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: background 0.3s;">
-                オンライン予約・注文はこちら
-            </a>
         </div>
 
         <!-- Footer -->
@@ -213,6 +213,77 @@
         </div>
 
     </div>
+    <!-- ==============================================
+         【コピー・盗用防止機能】プレビュー用
+         ============================================== -->
+    <style>
+        /* テキスト選択無効 */
+        body {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        /* 画像ドラッグ無効 */
+        img {
+            pointer-events: none;
+            -webkit-user-drag: none;
+        }
+
+        /* 全画面透かし（Watermark） */
+        .watermark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            /* 下のボタンは押せるように */
+            z-index: 9999;
+            background: repeating-linear-gradient(45deg,
+                    rgba(0, 0, 0, 0.03),
+                    rgba(0, 0, 0, 0.03) 10px,
+                    transparent 10px,
+                    transparent 20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .watermark-text {
+            font-size: 3rem;
+            color: rgba(255, 0, 0, 0.15);
+            font-weight: bold;
+            transform: rotate(-30deg);
+            white-space: nowrap;
+            font-family: sans-serif;
+            border: 5px solid rgba(255, 0, 0, 0.15);
+            padding: 20px 50px;
+        }
+    </style>
+
+    <!-- 透かし要素 -->
+    <div class="watermark-overlay">
+        <div class="watermark-text">SAMPLE / DRAFT</div>
+    </div>
+
+    <!-- 右クリック・ショートカット禁止スクリプト -->
+    <script>
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+            alert('プレビュー確認用のため、右クリックは制限されています。');
+        });
+        document.addEventListener('keydown', function (e) {
+            // F12, Ctrl+U, Ctrl+Shift+I などを抑制
+            if (e.key === 'F12' ||
+                (e.ctrlKey && e.key === 'u') ||
+                (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
 </body>
 
 </html>
