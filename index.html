@@ -19,6 +19,17 @@
             --card-bg: rgba(255, 255, 255, 0.6);
         }
 
+        /* Prevent horizontal scroll from elements wider than viewport */
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             margin: 0;
             font-family: 'Shippori Mincho', serif;
@@ -179,7 +190,7 @@
                 </div>
                 <!-- 3. 委託販売先 -->
                 <div
-                    style="background: rgba(240,235,230,0.8); padding: 30px; border-radius: 2px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                    style="background: rgba(225, 215, 200, 0.9); padding: 30px; border-radius: 2px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                     <h3
                         style="font-family: 'Shippori Mincho', serif; margin-top: 0; border-bottom: 1px solid #ddd; padding-bottom: 10px; color: #5a5a5a;">
                         委託販売先</h3>
@@ -200,8 +211,8 @@
         <div class="order-cta-section" style="text-align: center; padding: 60px 20px 80px;">
             <p
                 style="font-family: 'Shippori Mincho', serif; font-weight: 500; font-size: 1rem; margin-bottom: 30px; line-height: 2; color: #4A4238;">
-                季節の焼き菓子やカヌレは、<br>
-                オンラインオーダーにてご注文いただけます。
+                焼き立てのカヌレと季節の味。<br>
+                yuuのお店で、お待ちしております。
             </p>
         </div>
 
